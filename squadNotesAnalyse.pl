@@ -21,6 +21,7 @@ my $folderToAnalyse;
 my $fullPathname;
 my @splitter;
 my $poundSign = chr(156);
+my $newfile;
 
 $folderToAnalyse = "F:\\dev\\abosSpreadsheet";
 checkFolderExists($folderToAnalyse) ? 1 : exit;
@@ -70,12 +71,20 @@ sub analyseFiles {
             $splitter[1] = $quids[0].$poundSign.$quids[1];
             push @comments, $splitter[1];
         }
+        # concatenate the dates and comments arrays
+        push (@dates, @comments);
         foreach my $date (@dates){
             say $date;
         }
-        foreach my $comment (@comments){
-            say $comment;
-        }
+        # remove the filename extension and rename
+        ($newfile = $file) =~ s/\.[^.]+$//;
+        $newfile = $newfile."New.txt";
+        # write the concatenated array to file
+        #open(my $fh, '>', $newfile) or die "Could not open file '$newfile' $!";
+        #foreach my $line (@dates){
+        #    print $fh $line;
+        #}
+        #close $fh;
     }
 }
 
