@@ -19,6 +19,8 @@ my $filePath;
 my $fileName;
 my $folderToAnalyse;
 my $fullPathname;
+my @splitter;
+my $poundSign = chr(156);
 
 $folderToAnalyse = "F:\\dev\\abosSpreadsheet";
 checkFolderExists($folderToAnalyse) ? 1 : exit;
@@ -55,13 +57,25 @@ sub analyseFiles {
 
     foreach my $file (@arrOfProjFilePaths) {
         my @afile = read_file($file);
+        my @dates;
+        my @comments;
         foreach my $line (@afile){
-            if ($line =~ /Misc./){
-                #$line =~ s/\<TargetFrameworkVersion\>v4.6.1/\<TargetFrameworkVersion\>v4.5.1/g;
-                say "$file:\n$line";
-            }
+            # ignore lines that are just whitespace
+            ($line =~ /^\s*$/) ? next : 1;
+            # split the date and comments 
+            @splitter = split /:/, $line;
+            push @dates,    $splitter[0];
+            # need to handle the "£" symbol in the comments
+            my @quids = split /£/, $splitter[1];
+            $splitter[1] = $quids[0].$poundSign.$quids[1];
+            push @comments, $splitter[1];
         }
-        write_file($file, @afile);
+        foreach my $date (@dates){
+            say $date;
+        }
+        foreach my $comment (@comments){
+            say $comment;
+        }
     }
 }
 
