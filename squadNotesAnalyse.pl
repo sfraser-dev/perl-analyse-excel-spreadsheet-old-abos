@@ -10,6 +10,7 @@ use File::Basename;
 use Cwd;
 use POSIX qw(floor);
 use File::Slurp;
+use utf8; # need to be able to handle the UK "£" symbol
 
 my @contentFile;
 my $name;
@@ -27,7 +28,7 @@ $folderToAnalyse = "F:\\dev\\abosSpreadsheet";
 checkFolderExists($folderToAnalyse) ? 1 : exit;
 
 # find all the txt files from the folder (and its sub-folders) to analyse
-say "\n\n\n******* TXT *******\n\n";
+say "\n\n\n******* sheet.txt *******\n\n";
 find( \&fileWanted, $folderToAnalyse); 
 analyseFiles(\@contentFile);
 
@@ -58,23 +59,78 @@ sub analyseFiles {
 
     foreach my $file (@arrOfProjFilePaths) {
         my @afile = read_file($file);
-        my @dates;
-        my @comments;
+        my @payments;
+        my @miscs;
+        my @referees;
+        my @pitches;
+        my @refunds;
         foreach my $line (@afile){
             # ignore lines that are just whitespace
             ($line =~ /^\s*$/) ? next : 1;
-            # split the date and comments 
-            @splitter = split /:/, $line;
-            push @dates,    $splitter[0];
-            # need to handle the "£" symbol in the comments
-            my @quids = split /£/, $splitter[1];
-            $splitter[1] = $quids[0].$poundSign.$quids[1];
-            push @comments, $splitter[1];
+
+            # payments 
+            if ($line =~ / payment/) {
+                # split at "£" (use utf8)
+                my @quids = split /£/, $line;
+                # split at spaces " "
+                my @spaces = split / /, $quids[1];
+                push @payments, $spaces[0];
+            }
+
+#
+#
+#
+#
+# TODO: split Misc. into paid and received on spreadsheet
+#
+#
+#
+            # miscelleneous
+            if ($line =~ /Misc\./) {
+                # split at "£" (use utf8)
+                my @quids = split /£/, $line;
+                my @spaces = split / /, $quids[1];
+                push @miscs, $spaces[0];
+            }
+            
+            # referees
+            if ($line =~ / referee/) {
+                # split at "£" (use utf8)
+                my @quids = split /£/, $line;
+                my @spaces = split / /, $quids[1];
+                push @referees, $spaces[0];
+            }
+
+            # pitches
+            if ($line =~ / pitch/) {
+                # split at "£" (use utf8)
+                my @quids = split /£/, $line;
+                my @spaces = split / /, $quids[1];
+                push @pitches, $spaces[0];
+            }
+            
+            # refunds
+            if ($line =~ / refund/) {
+                # split at "£" (use utf8)
+                my @quids = split /£/, $line;
+                my @spaces = split / /, $quids[1];
+                push @refunds, $spaces[0];
+            }
         }
-        # concatenate the dates and comments arrays
-        push (@dates, @comments);
-        foreach my $date (@dates){
-            say $date;
+        #foreach my $payment (@payments){
+        #    say $payment;
+        #}
+        #foreach my $misc (@miscs){
+        #    say $misc;
+        #}
+        #foreach my $referee (@referees){
+        #    say $referee;
+        #}
+        #foreach my $pitch (@pitches){
+        #    say $pitch;
+        #}
+        foreach my $refund (@refunds){
+            say $refund;
         }
         # remove the filename extension and rename
         ($newfile = $file) =~ s/\.[^.]+$//;
@@ -94,7 +150,7 @@ sub fileWanted {
         say "Error on line: ".__LINE__;
         exit;
     }
-    if ($File::Find::name =~ /\.txt$/){
+    if ($File::Find::name =~ /sheet\.txt$/){
         push @contentFile, $File::Find::name;
     }
     return;
