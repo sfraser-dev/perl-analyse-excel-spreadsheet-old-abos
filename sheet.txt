@@ -1,130 +1,129 @@
-MurrayH £10 payment
-RoryF £20 payment
-Misc. StewartF £109 paid for sports insurance
-
-MurrayH £10 payment
-RoryF £20 payment
-RichardM £76 payment
-Misc. Halo £500 sponsorship received
-CraigF £120 payment
-MurrayH £40 referee
-ColinD £50 payment
-LewisW £50 payment
-RoryJ £30 referee
-EricE £20 referee
-EfosaO £10 payment
-ColinD £20 payment
-EfosaO £20 payment
-NeilB £20 payment
-RichardM £20 payment
-JamesS £50 payment
-MurrayH £20 payment
-BenM £80 payment
-AlanB £10 payment
-LewisW £20 payment
-MurrayS £20 payment
-PaulC £30 payment
-GeoffC £38 referee
-Misc. EwanM £40 paid for medical bag
-EwanM £25 referee
-FraserC £20 referee
-BenM £5 referee
-GeoffC £4 referee
-EwanM £5 refund (kept £5 from BenM)
-GeoffC £35 pitch
-FraserC £50 payment
-RoryJ £40 payment (£20*2)
-EricE £50 payment
-TomB £15 payment
-FraserC £15 payment
-StewartF £50.74 refund (reduce what owed)
-RichardM £10 payment
-BrookMK £8 payment
-RobertL £5 payment
-JoshA £50 payment
-EwanM £7 referee
-BenM £10 referee
-GeoffC £23 referee
-ColinD £6 refund (adding as payee)
-EwanM £50 refund (kept player payments for Glasgow friendly)
-JamesS £20 payment
-AndyC £88 payment
-EfosaO £50 payment
-EfosaO £10 payment
-RoryJ £15 payment
-MurrayH £10 payment
-LewisW £15 payment
-AndyC £10 payment
-NeilB £20 referee
-JoshA £20 referee
-LewisW £10 payment (to EwanM)
-BenM £10 payment (to EwanM)
-EwanM £20 refund (from LewisW and BenM)
-EwanM £16 payment (bought book of stamps)
-JamesS £20 payment
-BenM £10 payment
-AlanB £10 payment
-NeilB £15 payment
-EricE £20 payment
-FraserC £15 payment
-Misc. Paid Soccerworld £887.57 for tracksuits
-JoshA £50 payment
-RoryJ £15 payment
-BenM £5 payment (to EwanM)
-RobD £70 payment
-LewisW £15 payment
-MurrayH £10 payment
-Misc. Paid ASV £136 for Balgownie
-RobD £15 payment
-RichardM £20 payment
-MikeA £100 payment
-BenM £10 payment
-AlanB £15 payment
-Misc. StewartF £146 paid for historic ACC Kincorth invoice 
-NeilB £20 payment
-EwanM £40 referee
-NeilB £20 payment (quiz raffle tickets bought remotely by adjusting their balance here)
-CraigF £20 payment (quiz raffle tickets bought remotely by adjusting their balance here)
-JamesS £10 payment
-FraserC £15 payment
-CraigF £20 payment
-StewartF £175 refund (reduce what owed)
-Misc. Quiz money £675 paid into bank account (by GeoffC) 
-RoryJ £15 payment
-LewisW £15 payment
-MurrayH £10 payment
-NeilB £10 referee
-EricE £10 referee
-MikeA £4 referee
-RobD £15 payment
-GeoffC £10 referee
-JoshA £20 referee
-EfosaO £5 referee
-BenM £20 payment (to EwanM)
-BenM £10 payment
-AlanB £15 payment
-Misc. Paid ASV £204 for Balgownie
-MurrayS £20 payment
-NeilB £15 payment
-Misc. Paid ACC £260.16 for Rubislaw
-FraserC £15 payment
-RoryJ £15 payment
-LewisW £15 payment
-EricE £20 referee
-EwanM £2 referee
-EfosaO £10 payment
-RobD £15 payment
-MikeA £20 payment
-EwanM £20 refund (from MikeA)
-Misc. Paid SAFA £10 fine (wrong team lines, StewartF sent cheque)
-Misc. Paid ASV £68 for Balgownie
-EwanM £117 payment (bought four training tops)
-EwanM £10 refund (GeoffC wouldn¿t take petrol money (donate to club), equivalent to a refund)
-RobD £10 refund (GeoffC wouldn¿t take petrol money (donate to club), equivalent to a refund)
-AlanB £10 refund (GeoffC wouldn¿t take petrol money (donate to club), equivalent to a refund)
-BenM £10 payment
-AlanB £15 payment
-NeilB £15 payment
-RichardM £30 payment
-Misc. Paid ACC £162.60 for Rubislaw
+160701:10:"Abo payment MurrayH"
+160704:20:"Abo payment RoryF"
+160706:-109:"Miscellaneous spend StewartF (sports insurance)"
+160801:10:"Abo payment MurrayH"
+160803:20:"Abo payment RoryF"
+160804:76:"Abo payment RichardM"
+160805:500:"Fundraising Halo (sponsorship)"
+160805:120:"Abo payment CraigF"
+160806:40:"Referee MurrayH"
+160808:50:"Abo payment ColinD"
+160808:50:"Abo payment LewisW"
+160810:30:"Referee RoryJ"
+160810:20:"Referee EricE"
+160810:10:"Abo payment EfosaO"
+160811:20:"Abo payment ColinD "
+160811:20:"Abo payment EfosaO"
+160811:20:"Abo payment NeilB"
+160811:20:"Abo payment RichardM"
+160812:50:"Abo payment JamesS"
+160815:20:"Abo payment MurrayH"
+160815:80:"Abo payment BenM"
+160815:10:"Abo payment AlanB"
+160815:20:"Abo payment LewisW"
+160815:30:"Abo payment MurrayS"
+160815:30:"Abo payment PaulC"
+160815:38:"Referee GeoffC"
+160816:-40:"Miscellaneous spend EwanM (medical bag)"
+160817:25:"Referee EwanM"
+160817:20:"Referee FraserC"
+160817:5:"Referee BenM"
+160817:4:"Referee GeoffC"
+160717:-5:"Refund EwanM (keep)"
+160820:35:"Pitch GeoffC"
+160822:50:"Abo payment FraserC"
+160822:40:"Abo payment RoryJ £40"
+160824:50:"Abo payment EricE"
+160824:15:"Abo payment TomB"
+160825:15:"Abo payment FraserC"
+160825:-50.74:"Refund StewartF (reduce balance)"
+160826:10:"Abo payment RichardM"
+160826:8:"Abo payment BrookMK"
+160826:5:"Abo payment RobertL"
+160826:50:"Abo payment JoshA"
+160827:7:"Referee EwanM"
+160827:10:"Referee BenM"
+160827:23:"Referee GeoffC"
+160829:-6:"Refund ColinD (reduce balance)"
+160829:-50:"Refund EwanM (keep)"
+160830:20:"Abo payment JamesS"
+160830:88:"Abo payment AndyC"
+160831:50:"Abo payment EfosaO"
+160831:10:"Abo payment EfosaO"
+160901:15:"Abo payment RoryJ"
+160901:10:"Abo payment MurrayH"
+160901:15:"Abo payment LewisW"
+160901:10:"Abo payment AndyC"
+160903:20:"Referee NeilB"
+160903:20:"Referee JoshA"
+160903:10:"Abo payment LewisW"
+160903:10:"Abo payment BenM"
+160903:-20:"Refund EwanM (keep)"
+160905:16:"Abo payment EwanM (stamps)"
+160912:20:"Abo payment JamesS"
+160915:10:"Abo payment BenM"
+160915:10:"Abo payment AlanB"
+160920:15:"Abo payment NeilB"
+160921:20:"Abo payment EricE"
+160926:15:"Abo payment FraserC"
+160927:-887.57:"Miscellaneous spend Soccerworld (tracksuits)"
+160929:50:"Abo payment JoshA"
+160930:15:"Abo payment RoryJ"
+161001:5:"Abo payment BenM (to EwanM)"
+161004:70:"Abo payment RobD"
+161003:15:"Abo payment LewisW"
+161003:10:"Abo payment MurrayH"
+161004:-136:"Facilities ASV (Balgownie)"
+161006:15:"Abo payment RobD"
+161011:20:"Abo payment RichardM"
+161013:100:"Abo payment MikeA"
+161017:10:"Abo payment BenM"
+161017:15:"Abo payment AlanB"
+161019:-146:"Facilities ACC (Kincorth historic invoice, StewartF)"
+161020:20:"Abo payment NeilB"
+161022:40:"Referee EwanM"
+161022:20:"Abo payment NeilB (quiz raffle tickets bought remotely)"
+161022:20:"Abo payment CraigF (quiz raffle tickets bought remotely)"
+161024:10:"Abo payment JamesS"
+161025:15:"Abo payment FraserC"
+161026:20:"Abo payment CraigF"
+161027:-175:"Refund StewartF(reduce balance)"
+161031:675:"Fundraising quiz (paid into bank GeoffC)"
+161031:15:"Abo payment RoryJ"
+161101:15:"Abo payment LewisW"
+161101:10:"Abo payment MurrayH"
+161105:10:"Referee NeilB"
+161105:10:"Referee EricE"
+161105:4:"Referee MikeA"
+161107:15:"Abo payment RobD"
+161112:10:"Referee GeoffC"
+161112:20:"Referee JoshA"
+161112:5:"Referee EfosaO"
+161112:20:"Abo payment BenM (to EwanM)"
+161115:10:"Abo payment BenM"
+161115:15:"Abo payment AlanB"
+161115:-204:"Facilities ASV (Balgownie)"
+161117:20:"Abo payment MurrayS"
+161121:15:"Abo payment NeilB"
+161123:-260.16:"Facilities ACC (Rubislaw)"
+161125:15:"Abo payment FraserC"
+161130:15:"Abo payment RoryJ"
+161201:15:"Abo payment LewisW"
+161203:20:"Referee EricE"
+161203:2:"Referee EwanM"
+161205:10:"Abo payment EfosaO"
+161206:15:"Abo payment RobD"
+161211:20:"Abo payment MikeA"
+161211:-20:"Refund EwanM (keep)"
+161211:-10:"Fine SAFA (wrong team lines, cheque StewartF)"
+161115:-68:"Facilities ASV (Balgownie)"
+161130:117:"Abo payment EwanM (bought four training tops)"
+161204:-10:"Refund EwanM (reduce balance (GeoffC would not take petrol money))"
+161204:-10:"Refund RobD (reduce balance (GeoffC would not take petrol money))"
+161204:-10:"Refund AlanB (reduce balance (GeoffC would not take petrol money))"
+161215:10:"Abo payment BenM"
+161215:15:"Abo payment AlanB"
+161220:15:"Abo payment NeilB"
+161221:30:"Abo payment RichardM "
+161222:-162.6:"Facilities ACC (Rubislaw)"
 
