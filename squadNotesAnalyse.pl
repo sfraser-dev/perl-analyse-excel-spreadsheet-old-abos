@@ -85,6 +85,9 @@ sub analyseFiles {
         my @facilities;
         my @facilitiesCash;
         my @facilitiesDate;
+        my @fines;
+        my @finesCash;
+        my @finesDate;
         foreach my $line (@afile){
             # ignore lines that are just whitespace
             ($line =~ /^\s*$/) ? next : 1;
@@ -151,6 +154,15 @@ sub analyseFiles {
                 push @facilitiesCash, $cols[1];
                 push @facilitiesDate, $cols[0];
             }
+            
+            # fines
+            if ($line =~ /\"Fine /) {
+                # split at ":"
+                my @cols = split /:/, $line;
+                push @fines, $cols[2];
+                push @finesCash, $cols[1];
+                push @finesDate, $cols[0];
+            }
         }
 
         my $paymentsSum = 0; 
@@ -160,6 +172,7 @@ sub analyseFiles {
         my $refundsSum = 0; 
         my $fundraisingsSum = 0; 
         my $facilitiesSum = 0; 
+        my $finesSum = 0; 
 
         # remove the filename extension and rename
         ($formattedFile = $file) =~ s/\.[^.]+$//;
@@ -239,6 +252,16 @@ sub analyseFiles {
 
         printf $fh "\n";
         printf $fh "\n";
+        printf $fh "********** Fines **********\n";
+        for(my $i=0; $i<scalar(@fines); $i++){
+            $finesSum += $finesCash[$i];
+            chomp $fines[$i];
+            printf $fh ("%-10d %-10.2f %s\n", $finesDate[$i], $finesCash[$i], $fines[$i]);
+        }
+        printf $fh "Total cost of fines = £$finesSum\n";
+
+        printf $fh "\n";
+        printf $fh "\n";
         printf $fh "********** Summary **********\n";
         printf $fh "Total payments from Abos = £$paymentsSum\n";
         printf $fh "Total miscelleneous spends= £$miscsSum\n";
@@ -247,6 +270,9 @@ sub analyseFiles {
         printf $fh "Total refunds = £$refundsSum\n";
         printf $fh "Total fundraisings = £$fundraisingsSum\n";
         printf $fh "Total cost for facilities = £$facilitiesSum\n";
+        printf $fh "Total cost for fines = £$finesSum\n";
+        my $summation = $paymentsSum + $miscsSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum;
+        printf $fh "Net debit / credits = £$summation\n";
 
         # close the file
         close $fh;
