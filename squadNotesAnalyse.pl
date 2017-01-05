@@ -2,11 +2,14 @@
 
 # runs with Strawberry Perl: http://strawberryperl.com/
 
-# Copy and paste the SquadNotes sheet "date, GBP and comments" to a new spreadsheet
-# Save this spreadsheet as a CSV file with the following options
-# file -> save as -> csv (edit filter settings, text csv format, ... 
+# Copy and paste the SquadNotes sheet "date, GBP and comments" to a new spreadsheet "sheet.ods"
+# Save "sheet.ods" as a CSV file with the following options
+# file -> save as -> csv -> "sheet.txt" (edit filter settings, text csv format, ... 
 # ... character set Western Europe, field delimiter :, Text delimiter ", ...
 # ... save cell contents as shown, quote all text cells)
+#
+# Only have to convert "sheet.ods" to "sheet.txt" once, can then work with "sheet.txt"
+# in LibreCalc directly after that.
 
 use strict;
 use warnings;
@@ -64,12 +67,16 @@ sub analyseFiles {
 
     foreach my $file (@arrOfProjFilePaths) {
         my @afile = read_file($file);
+        my $lineCount = 0;
         my @payments;
         my @paymentsCash;
         my @paymentsDate;
-        my @miscs;
-        my @miscsCash;
-        my @miscsDate;
+        my @miscSpends;
+        my @miscSpendsCash;
+        my @miscSpendsDate;
+        my @miscReceives;
+        my @miscReceivesCash;
+        my @miscReceivesDate;
         my @referees;
         my @refereesCash;
         my @refereesDate;
@@ -89,6 +96,8 @@ sub analyseFiles {
         my @finesCash;
         my @finesDate;
         foreach my $line (@afile){
+            $lineCount++;
+
             # ignore lines that are just whitespace
             ($line =~ /^\s*$/) ? next : 1;
 
@@ -105,11 +114,20 @@ sub analyseFiles {
             if ($line =~ /\"Miscellaneous spend/) {
                 # split at ":"
                 my @cols = split /:/, $line;
-                push @miscs, $cols[2];
-                push @miscsCash, $cols[1];
-                push @miscsDate, $cols[0];
+                push @miscSpends, $cols[2];
+                push @miscSpendsCash, $cols[1];
+                push @miscSpendsDate, $cols[0];
             }
             
+            # miscelleneous received
+            if ($line =~ /\"Miscellaneous received/) {
+                # split at ":"
+                my @cols = split /:/, $line;
+                push @miscReceives, $cols[2];
+                push @miscReceivesCash, $cols[1];
+                push @miscReceivesDate, $cols[0];
+            }
+
             # referees
             if ($line =~ /\"Referee /) {
                 # split at ":"
@@ -166,7 +184,8 @@ sub analyseFiles {
         }
 
         my $paymentsSum = 0; 
-        my $miscsSum = 0; 
+        my $miscSpendsSum = 0; 
+        my $miscReceivesSum = 0; 
         my $refereesSum = 0; 
         my $pitchesSum = 0; 
         my $refundsSum = 0; 
@@ -193,12 +212,22 @@ sub analyseFiles {
         printf $fh "\n";
         printf $fh "\n";
         printf $fh "********** Miscellaneous Spends **********\n";
-        for(my $i=0; $i<scalar(@miscs); $i++){
-            $miscsSum += $miscsCash[$i];
-            chomp $miscs[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $miscsDate[$i], $miscsCash[$i], $miscs[$i]);
+        for(my $i=0; $i<scalar(@miscSpends); $i++){
+            $miscSpendsSum += $miscSpendsCash[$i];
+            chomp $miscSpends[$i];
+            printf $fh ("%-10d %-10.2f %s\n", $miscSpendsDate[$i], $miscSpendsCash[$i], $miscSpends[$i]);
         }
-        printf $fh "Total miscelleneous spends= £$miscsSum\n";
+        printf $fh "Total miscelleneous spends= £$miscSpendsSum\n";
+
+        printf $fh "\n";
+        printf $fh "\n";
+        printf $fh "********** Miscellaneous Received **********\n";
+        for(my $i=0; $i<scalar(@miscReceives); $i++){
+            $miscReceivesSum += $miscReceivesCash[$i];
+            chomp $miscReceives[$i];
+            printf $fh ("%-10d %-10.2f %s\n", $miscReceivesDate[$i], $miscReceivesCash[$i], $miscReceives[$i]);
+        }
+        printf $fh "Total miscelleneous received = £$miscReceivesSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
@@ -264,15 +293,17 @@ sub analyseFiles {
         printf $fh "\n";
         printf $fh "********** Summary **********\n";
         printf $fh "Total payments from Abos = £$paymentsSum\n";
-        printf $fh "Total miscelleneous spends= £$miscsSum\n";
+        printf $fh "Total miscelleneous spends= £$miscSpendsSum\n";
+        printf $fh "Total miscelleneous received = £$miscReceivesSum\n";
         printf $fh "Total referee costs = £$refereesSum\n";
         printf $fh "Total pitch costs = £$pitchesSum\n";
         printf $fh "Total refunds = £$refundsSum\n";
         printf $fh "Total fundraisings = £$fundraisingsSum\n";
         printf $fh "Total cost for facilities = £$facilitiesSum\n";
         printf $fh "Total cost for fines = £$finesSum\n";
-        my $summation = $paymentsSum + $miscsSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum;
+        my $summation = $paymentsSum + $miscSpendsSum + $miscReceivesSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum;
         printf $fh "Net debit / credits = £$summation\n";
+        printf $fh "Read $lineCount lines from file $file\n";
 
         # close the file
         close $fh;
