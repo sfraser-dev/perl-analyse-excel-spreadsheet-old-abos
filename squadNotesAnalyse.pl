@@ -67,39 +67,49 @@ sub analyseFiles {
 
     foreach my $file (@arrOfProjFilePaths) {
         my @afile = read_file($file);
-        my $lineCount = 0;
+        my $lineCountTotal = 0;
         my @payments;
         my @paymentsCash;
         my @paymentsDate;
+        my $paymentsLines = 0;
         my @miscSpends;
         my @miscSpendsCash;
         my @miscSpendsDate;
+        my $miscSpendsLines = 0;
         my @miscReceives;
         my @miscReceivesCash;
         my @miscReceivesDate;
+        my $miscReceivesLines = 0;
         my @referees;
         my @refereesCash;
         my @refereesDate;
+        my $refereesLines = 0;
         my @pitches;
         my @pitchesCash;
         my @pitchesDate;
+        my $pitchesLines = 0;
         my @refunds;
         my @refundsCash;
         my @refundsDate;
+        my $refundsLines = 0;
         my @fundraisings;
         my @fundraisingsCash;
         my @fundraisingsDate;
+        my $fundraisingsLines = 0;
         my @facilities;
         my @facilitiesCash;
         my @facilitiesDate;
+        my $facilitiesLines = 0;
         my @fines;
         my @finesCash;
         my @finesDate;
+        my $finesLines = 0;
         foreach my $line (@afile){
-            $lineCount++;
-
             # ignore lines that are just whitespace
             ($line =~ /^\s*$/) ? next : 1;
+
+            # count lines to make sure all rows in spreadsheet are read
+            $lineCountTotal++;
 
             # payments 
             if ($line =~ /\"Abo payment/) {
@@ -108,6 +118,7 @@ sub analyseFiles {
                 push @payments, $cols[2];
                 push @paymentsCash, $cols[1];
                 push @paymentsDate, $cols[0];
+                $paymentsLines++;
             }
             
             # miscelleneous spend
@@ -117,6 +128,7 @@ sub analyseFiles {
                 push @miscSpends, $cols[2];
                 push @miscSpendsCash, $cols[1];
                 push @miscSpendsDate, $cols[0];
+                $miscSpendsLines++;
             }
             
             # miscelleneous received
@@ -126,6 +138,7 @@ sub analyseFiles {
                 push @miscReceives, $cols[2];
                 push @miscReceivesCash, $cols[1];
                 push @miscReceivesDate, $cols[0];
+                $miscReceivesLines++;
             }
 
             # referees
@@ -135,6 +148,7 @@ sub analyseFiles {
                 push @referees, $cols[2];
                 push @refereesCash, $cols[1];
                 push @refereesDate, $cols[0];
+                $refereesLines++;
             }
             
             # pitches
@@ -144,6 +158,7 @@ sub analyseFiles {
                 push @pitches, $cols[2];
                 push @pitchesCash, $cols[1];
                 push @pitchesDate, $cols[0];
+                $pitchesLines++;
             }
             
             # refunds
@@ -153,6 +168,7 @@ sub analyseFiles {
                 push @refunds, $cols[2];
                 push @refundsCash, $cols[1];
                 push @refundsDate, $cols[0];
+                $refundsLines++;
             }
             
             # fundraising
@@ -162,6 +178,7 @@ sub analyseFiles {
                 push @fundraisings, $cols[2];
                 push @fundraisingsCash, $cols[1];
                 push @fundraisingsDate, $cols[0];
+                $fundraisingsLines++;
             }
             
             # facilities
@@ -171,6 +188,7 @@ sub analyseFiles {
                 push @facilities, $cols[2];
                 push @facilitiesCash, $cols[1];
                 push @facilitiesDate, $cols[0];
+                $facilitiesLines++;
             }
             
             # fines
@@ -180,6 +198,7 @@ sub analyseFiles {
                 push @fines, $cols[2];
                 push @finesCash, $cols[1];
                 push @finesDate, $cols[0];
+                $finesLines++;
             }
         }
 
@@ -201,92 +220,101 @@ sub analyseFiles {
 
 
         printf $fh "\n";
-        printf $fh "********** Payments from Abos **********\n";
+        printf $fh "********** Category: Abo Payments **********\n";
         for(my $i=0; $i<scalar(@payments); $i++){
             $paymentsSum += $paymentsCash[$i];
             chomp $payments[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $paymentsDate[$i], $paymentsCash[$i], $payments[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $paymentsDate[$i], $paymentsCash[$i], $payments[$i]);
         }
+        printf $fh "Should be $paymentsLines separate Abo payments\n";
         printf $fh "Total payments from Abos = £$paymentsSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Miscellaneous Spends **********\n";
+        printf $fh "********** Category: Miscellaneous Spends **********\n";
         for(my $i=0; $i<scalar(@miscSpends); $i++){
             $miscSpendsSum += $miscSpendsCash[$i];
             chomp $miscSpends[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $miscSpendsDate[$i], $miscSpendsCash[$i], $miscSpends[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $miscSpendsDate[$i], $miscSpendsCash[$i], $miscSpends[$i]);
         }
-        printf $fh "Total miscelleneous spends= £$miscSpendsSum\n";
+        printf $fh "Should be $miscSpendsLines separate miscellaneous spends\n";
+        printf $fh "Total miscelleneous spends = £$miscSpendsSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Miscellaneous Received **********\n";
+        printf $fh "********** Category: Miscellaneous Received **********\n";
         for(my $i=0; $i<scalar(@miscReceives); $i++){
             $miscReceivesSum += $miscReceivesCash[$i];
             chomp $miscReceives[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $miscReceivesDate[$i], $miscReceivesCash[$i], $miscReceives[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $miscReceivesDate[$i], $miscReceivesCash[$i], $miscReceives[$i]);
         }
+        printf $fh "Should be $miscReceivesLines separate miscellaneous receives\n";
         printf $fh "Total miscelleneous received = £$miscReceivesSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Referee costs **********\n";
+        printf $fh "********** Category: Referee Costs **********\n";
         for(my $i=0; $i<scalar(@referees); $i++){
             $refereesSum += $refereesCash[$i];
             chomp $referees[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $refereesDate[$i], $refereesCash[$i], $referees[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $refereesDate[$i], $refereesCash[$i], $referees[$i]);
         }
+        printf $fh "Should be $refereesLines separate referee payments\n";
         printf $fh "Total referee costs = £$refereesSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Pitch costs **********\n";
+        printf $fh "********** Category: Pitch Costs **********\n";
         for(my $i=0; $i<scalar(@pitches); $i++){
             $pitchesSum += $pitchesCash[$i];
             chomp $pitches[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $pitchesDate[$i], $pitchesCash[$i], $pitches[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $pitchesDate[$i], $pitchesCash[$i], $pitches[$i]);
         }
+        printf $fh "Should be $pitchesLines separate pitch payments\n";
         printf $fh "Total pitch costs = £$pitchesSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Refunds **********\n";
+        printf $fh "********** Category: Refunds **********\n";
         for(my $i=0; $i<scalar(@refunds); $i++){
             $refundsSum += $refundsCash[$i];
             chomp $refunds[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $refundsDate[$i], $refundsCash[$i], $refunds[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $refundsDate[$i], $refundsCash[$i], $refunds[$i]);
         }
+        printf $fh "Should be $refundsLines separate refunds\n";
         printf $fh "Total refunds = £$refundsSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Fundraising **********\n";
+        printf $fh "********** Category: Fundraising **********\n";
         for(my $i=0; $i<scalar(@fundraisings); $i++){
             $fundraisingsSum += $fundraisingsCash[$i];
             chomp $fundraisings[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $fundraisingsDate[$i], $fundraisingsCash[$i], $fundraisings[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $fundraisingsDate[$i], $fundraisingsCash[$i], $fundraisings[$i]);
         }
+        printf $fh "Should be $fundraisingsLines separate fundraising contributions\n";
         printf $fh "Total fundraisings = £$fundraisingsSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Facilities **********\n";
+        printf $fh "********** Category: Facilities **********\n";
         for(my $i=0; $i<scalar(@facilities); $i++){
             $facilitiesSum += $facilitiesCash[$i];
             chomp $facilities[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $facilitiesDate[$i], $facilitiesCash[$i], $facilities[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $facilitiesDate[$i], $facilitiesCash[$i], $facilities[$i]);
         }
+        printf $fh "Should be $facilitiesLines separate facility payments\n";
         printf $fh "Total cost for facilities = £$facilitiesSum\n";
 
         printf $fh "\n";
         printf $fh "\n";
-        printf $fh "********** Fines **********\n";
+        printf $fh "********** Category: Fines **********\n";
         for(my $i=0; $i<scalar(@fines); $i++){
             $finesSum += $finesCash[$i];
             chomp $fines[$i];
-            printf $fh ("%-10d %-10.2f %s\n", $finesDate[$i], $finesCash[$i], $fines[$i]);
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $finesDate[$i], $finesCash[$i], $fines[$i]);
         }
+        printf $fh "Should be $finesLines separate fine payments\n";
         printf $fh "Total cost of fines = £$finesSum\n";
 
         printf $fh "\n";
@@ -303,7 +331,10 @@ sub analyseFiles {
         printf $fh "Total cost for fines = £$finesSum\n";
         my $summation = $paymentsSum + $miscSpendsSum + $miscReceivesSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum;
         printf $fh "Net debit / credits = £$summation\n";
-        printf $fh "Read $lineCount lines from file $file\n";
+        printf $fh "Read $lineCountTotal lines (in total) from file $file\n";
+        my $categoryLinesTotal = $paymentsLines + $miscSpendsLines + $miscReceivesLines + $refereesLines + $pitchesLines + 
+            $refundsLines + $fundraisingsLines + $facilitiesLines + $finesLines;
+        printf $fh ("Summation of all lines in each category = %d", $categoryLinesTotal);
 
         # close the file
         close $fh;
