@@ -354,6 +354,7 @@ sub fileWanted {
 }
 
 sub checkFolderExists {
+    # expect one argument
     if (@_ != 1){
         say "Error on line: ".__LINE__;
         exit;
