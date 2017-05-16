@@ -104,6 +104,10 @@ sub analyseFiles {
         my @finesCash;
         my @finesDate;
         my $finesLines = 0;
+        my @recouped;
+        my @recoupedCash;
+        my @recoupedDate;
+        my $recoupedLines = 0;
         foreach my $line (@afile){
             # ignore lines that are just whitespace
             ($line =~ /^\s*$/) ? next : 1;
@@ -200,6 +204,16 @@ sub analyseFiles {
                 push @finesDate, $cols[0];
                 $finesLines++;
             }
+            
+            # recouped fines
+            if ($line =~ /\"Recouped fine/) {
+                # split at ":"
+                my @cols = split /:/, $line;
+                push @recouped, $cols[2];
+                push @recoupedCash, $cols[1];
+                push @recoupedDate, $cols[0];
+                $recoupedLines++;
+            }
         }
 
         my $paymentsSum = 0; 
@@ -211,6 +225,7 @@ sub analyseFiles {
         my $fundraisingsSum = 0; 
         my $facilitiesSum = 0; 
         my $finesSum = 0; 
+        my $recoupedSum = 0; 
 
         # remove the filename extension and rename
         ($formattedFile = $file) =~ s/\.[^.]+$//;
@@ -319,6 +334,17 @@ sub analyseFiles {
 
         printf $fh "\n";
         printf $fh "\n";
+        printf $fh "********** Category: Recouped fines **********\n";
+        for(my $i=0; $i<scalar(@recouped); $i++){
+            $recoupedSum += $recoupedCash[$i];
+            chomp $recouped[$i];
+            printf $fh ("Line %-5d %-10d %-10.2f %s\n", $i+1, $recoupedDate[$i], $recoupedCash[$i], $recouped[$i]);
+        }
+        printf $fh "Should be $recoupedLines separate recouped fines\n";
+        printf $fh "Total recouped fines = £$recoupedSum\n";
+
+        printf $fh "\n";
+        printf $fh "\n";
         printf $fh "********** Summary **********\n";
         printf $fh "Total payments from Abos = £$paymentsSum\n";
         printf $fh "Total miscelleneous spends= £$miscSpendsSum\n";
@@ -329,11 +355,12 @@ sub analyseFiles {
         printf $fh "Total fundraisings = £$fundraisingsSum\n";
         printf $fh "Total cost for facilities = £$facilitiesSum\n";
         printf $fh "Total cost for fines = £$finesSum\n";
-        my $summation = $paymentsSum + $miscSpendsSum + $miscReceivesSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum;
+        printf $fh "Total recouped fines = £$recoupedSum\n";
+        my $summation = $paymentsSum + $miscSpendsSum + $miscReceivesSum + $refereesSum + $pitchesSum + $refundsSum + $fundraisingsSum + $facilitiesSum + $finesSum + $recoupedSum;
         printf $fh "Net debit / credits = £$summation\n";
         printf $fh "Read $lineCountTotal lines (in total) from file $file\n";
         my $categoryLinesTotal = $paymentsLines + $miscSpendsLines + $miscReceivesLines + $refereesLines + $pitchesLines + 
-            $refundsLines + $fundraisingsLines + $facilitiesLines + $finesLines;
+            $refundsLines + $fundraisingsLines + $facilitiesLines + $finesLines + $recoupedLines;
         printf $fh ("Summation of all lines in each category = %d", $categoryLinesTotal);
 
         # close the file
@@ -347,7 +374,7 @@ sub fileWanted {
         say "Error on line: ".__LINE__;
         exit;
     }
-    if ($File::Find::name =~ /sheet\.txt$/){
+    if ($File::Find::name =~ /sheet2\.txt$/){
         push @contentFile, $File::Find::name;
     }
     return;
