@@ -347,7 +347,7 @@ sub fileWanted {
         say "Error on line: ".__LINE__;
         exit;
     }
-    if ($File::Find::name =~ /sheet2\.txt$/){
+    if ($File::Find::name =~ /sheet\.txt$/){
         push @contentFile, $File::Find::name;
     }
     return;
