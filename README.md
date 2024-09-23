@@ -1,1 +1,1 @@
-Perl script to summerise a spreadsheet.
+Perl script to analyse an Excel spreadsheet.
